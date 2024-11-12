@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: greenyellow;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+        }
+
+        .header {
+            display: flex;
+            align-items: center;
+            padding: 1rem;
+            gap: 2rem;
+        }
+
+        #baatchat {
+            height: 100px;
+            width: 100px;
+        }
+
+        .welcome {
+            text-align: center;
+            position: absolute;
+            left: 600px;
+        }
+
+        .welcome h1 {
+            font-size: clamp(2rem, 4vw, 2.5rem);
+        }
+
+        #welcomeMessage {
+            color: red;
+            font-size: clamp(1rem, 3vw, 1.5rem);
+        }
+
+        .card-container {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 1rem;
+            margin-bottom: 100px; /* Space for navigation */
+        }
+
+        .profile-card {
+            width: min(90%, 300px);
+            height: auto;
+            min-height: 350px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            padding: 1rem;
+            transform: scale(1);
+            transition: transform 0.3s ease-out;
+        }
+
+        .profile-content {
+            text-align: center;
+        }
+
+        .profile-image {
+            width: 100%;
+            max-height: 200px;
+            object-fit: cover;
+            border-radius: 8px;
+            margin: 1rem 0;
+        }
+
+        .buttons {
+            position: fixed;
+            bottom: 80px;
+            left: 0;
+            right: 0;
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            padding: 1rem;
+        }
+
+        .swipe-btn {
+            padding: 0.8rem 1.5rem;
+            font-size: clamp(0.875rem, 2vw, 1rem);
+            cursor: pointer;
+            border: none;
+            border-radius: 5px;
+            min-width: 80px;
+        }
+
+        #left-btn {
+            background-color: #f44336;
+            color: white;
+        }
+
+        #right-btn {
+            background-color: #4CAF50;
+            color: white;
+        }
+
+        .nav-btn {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 60px;
+            background-color: orangered;
+            border-radius: 15px 15px 0 0;
+            display: flex;
+            justify-content: space-evenly;
+            align-items: center;
+            padding: 0.5rem;
+        }
+
+        .nav-btn button {
+            height: 40px;
+            width: 40px;
+            border-radius: 10px;
+            border: none;
+            background-color: transparent;
+            color: white;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .nav-btn button:hover {
+            background-color: rgba(255, 255, 255, 0.2);
+        }
+
+        #home {
+            background-color: green;
+        }
+
+        .swiped-left {
+            transform: translateX(-100%) rotate(-10deg);
+        }
+
+        .swiped-right {
+            transform: translateX(100%) rotate(10deg);
+        }
+
+        /* Media Queries */
+        @media (max-width: 480px) {
+            .header {
+                flex-direction: column;
+                gap: 0.5rem;
+            }
+
+            #baatchat {
+                height: 60px;
+                width: 60px;
+            }
+
+            .nav-btn {
+                height: 50px;
+            }
+
+            .nav-btn button {
+                height: 35px;
+                width: 35px;
+            }
+        }
+
+        @media (min-width: 768px) {
+            .profile-card {
+                width: 350px;
+            }
+
+            .buttons {
+                gap: 2rem;
+            }
+
+            .swipe-btn {
+                padding: 1rem 2rem;
+            }
+        }
+
+        @media (min-width: 1024px) {
+            .header {
+                padding: 2rem;
+            }
+
+            .profile-card {
+                width: 400px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <img src="img10.png" id="baatchat" alt="BaatChat Logo">
+        <div class="welcome">
+            <h1>Welcome!</h1>
+            <p id="welcomeMessage"></p>
+        </div>
+    </div>
+
+    <div class="card-container">
+        <div class="profile-card" id="profile-card">
+            <div class="profile-content">
+                <h2>User Name</h2>
+                <p>Some bio information about this user.</p>
+                <img id="profile-image" src="img 20.png" alt="profile picture" class="profile-image">
+            </div>
+        </div>
+    </div>
+
+    <div class="buttons">
+        <button id="left-btn" class="swipe-btn">Left</button>
+        <button id="right-btn" class="swipe-btn">Right</button>
+    </div>
+
+    <div class="nav-btn">
+        <button id="home"><i class="fa-solid fa-house"></i></button>
+       <a href="explore.html"> <button id="groups"><i class="fa-regular fa-compass"></i></button></a>
+       <a href="post.html"> <button id="post"><i class="fa-solid fa-plus"></i></button></a>
+       <a href="radar.html"> <button id="radar"><i class="fa-solid fa-location-dot"></i></button></a>
+       <a href="chat.html"><button id="bell"><i class="fa-solid fa-bell"></i></button></a> 
+    </div>
+
+    <script>
+         document.addEventListener("DOMContentLoaded", function() {
+    const leftButton = document.getElementById('left-btn');
+    const rightButton = document.getElementById('right-btn');
+    const profileCard = document.getElementById('profile-card');
+    const profileImage = document.getElementById('profile-image');
+
+    let profiles = [
+        {
+            id: 1,
+            name: "Prathviraj Raghuwanshi",
+            bio: "Intermediate at front end Web devlopment love to explore more.",
+            
+            
+        },
+        
+        {
+            id: 2,
+            name: "Aryan Patil",
+            bio: "Loves to have a talk over tech, startups & music.",
+           
+        },
+        {
+            id: 3,
+            name: "Divyanshi Gupta",
+            bio: "Kind person who loves python programming.",
+           
+        },
+        {
+            id: 4,
+            name: "Pushpendra Garg",
+            bio: "Interested in talks over AIML and cyber security + cinematography.",
+           
+        },
+        {
+            id: 5,
+            name: "Abhi Agrawal",
+            bio: "I am abhi i love to do graphic designing and currently learning C++ .",
+            
+        }
+    ];
+     
+   
+
+
+
+    let currentProfileIndex = 0;
+    let swipedProfiles = [];
+
+    function swipeLeft() {
+        profileCard.classList.add("swiped-left");
+        setTimeout(() => {
+            profileCard.classList.remove("swiped-left");
+            console.log(`You swiped left on ${profiles[currentProfileIndex].name}`);
+            moveToNextProfile();
+        }, 300);
+    }
+
+    function swipeRight() {
+        profileCard.classList.add("swiped-right");
+        setTimeout(() => {
+            profileCard.classList.remove("swiped-right");
+            console.log(`You swiped right on ${profiles[currentProfileIndex].name}`);
+            handleRightSwipe(profiles[currentProfileIndex]);
+            moveToNextProfile();
+        }, 300);
+    }
+
+    function handleRightSwipe(profile) {
+        if (swipedProfiles.includes(profile.id)) {
+            console.log(`You matched with ${profile.name}!`);
+            alert(`You matched with ${profile.name}!`);
+        } else {
+            swipedProfiles.push(profile.id);
+            console.log(`Pending connection with ${profile.name}`);
+        }
+    }
+
+    function moveToNextProfile() {
+        currentProfileIndex = (currentProfileIndex + 1) % profiles.length;
+        renderProfileCard(profiles[currentProfileIndex]);
+    }
+
+    function renderProfileCard(profile) {
+        const profileContent = profileCard.querySelector('.profile-content');
+        profileContent.innerHTML = `
+            <h2>${profile.name}</h2>
+            <p>${profile.bio}</p>
+        `;
+        profileImage.src = profile.image; 
+    }
+
+   
+    renderProfileCard(profiles[currentProfileIndex]);
+
+    
+    leftButton.addEventListener("click", swipeLeft);
+    rightButton.addEventListener("click", swipeRight);
+
+   
+    let touchstartX = 0;
+    let touchendX = 0;
+
+    function handleSwipe() {
+        if (touchendX < touchstartX) {
+            // Swipe left
+            swipeLeft();
+        }
+        if (touchendX > touchstartX) {
+            // Swipe right
+            swipeRight();
+        }
+    }
+
+    profileCard.addEventListener('touchstart', (e) => {
+        touchstartX = e.changedTouches[0].screenX;
+    });
+
+    profileCard.addEventListener('touchend', (e) => {
+        touchendX = e.changedTouches[0].screenX;
+        handleSwipe();
+    });
+});
+
+
+
+
+
+    </script>
+</body>
+</html>

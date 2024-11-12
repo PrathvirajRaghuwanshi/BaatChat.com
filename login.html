@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+        }
+
+        body {
+            min-height: 100vh;
+            min-height: 100svh; /* For mobile browsers */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(135deg, #90ee90, #32cd32);
+            padding: 1rem;
+        }
+
+        .login-box {
+            background: white;
+            padding: clamp(1.5rem, 5vw, 2.5rem);
+            border-radius: 15px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: min(90vw, 400px);
+            margin: auto;
+        }
+
+        .login-box h2 {
+            color: #333;
+            text-align: center;
+            margin-bottom: clamp(1rem, 3vw, 1.5rem);
+            font-size: clamp(1.5rem, 4vw, 1.8rem);
+        }
+
+        #loginForm {
+            display: flex;
+            flex-direction: column;
+            gap: clamp(0.8rem, 2vw, 1rem);
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: clamp(0.3rem, 1vw, 0.5rem);
+        }
+
+        label {
+            color: #555;
+            font-weight: 500;
+            font-size: clamp(0.9rem, 2.5vw, 1rem);
+        }
+
+        input {
+            padding: clamp(0.6rem, 2vw, 0.8rem);
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: clamp(0.9rem, 2.5vw, 1rem);
+            transition: border-color 0.3s ease;
+            width: 100%;
+        }
+
+        input:focus {
+            outline: none;
+            border-color: #32cd32;
+        }
+
+        button {
+            background: #32cd32;
+            color: white;
+            padding: clamp(0.6rem, 2vw, 0.8rem);
+            border: none;
+            border-radius: 8px;
+            font-size: clamp(0.9rem, 2.5vw, 1rem);
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            margin-top: clamp(0.8rem, 2vw, 1rem);
+            width: 100%;
+        }
+
+        button:hover {
+            background: #28a428;
+        }
+
+        button:active {
+            transform: scale(0.98);
+        }
+
+        .signup-link {
+            text-align: center;
+            margin-top: clamp(1.2rem, 3vw, 1.5rem);
+            color: #666;
+            font-size: clamp(0.85rem, 2.5vw, 0.9rem);
+        }
+
+        .signup-link a {
+            color: #32cd32;
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .signup-link a:hover {
+            text-decoration: underline;
+        }
+
+        .error-message {
+            color: #ff4444;
+            font-size: clamp(0.8rem, 2.5vw, 0.9rem);
+            margin-top: 0.5rem;
+            display: none;
+        }
+
+        /* Mobile-specific styles */
+        @media screen and (max-width: 480px) {
+            .login-box {
+                box-shadow: none;
+                background: rgba(255, 255, 255, 0.95);
+                backdrop-filter: blur(10px);
+            }
+
+            input {
+                font-size: 16px; /* Prevents iOS zoom on focus */
+            }
+        }
+
+        /* Tablet-specific styles */
+        @media screen and (min-width: 481px) and (max-width: 768px) {
+            .login-box {
+                padding: 2rem;
+            }
+        }
+
+        /* Dark mode support */
+        @media (prefers-color-scheme: dark) {
+            .login-box {
+                background: #1a1a1a;
+            }
+
+            .login-box h2 {
+                color: #fff;
+            }
+
+            label {
+                color: #ccc;
+            }
+
+            input {
+                background: #2a2a2a;
+                border-color: #404040;
+                color: #fff;
+            }
+
+            .signup-link {
+                color: #aaa;
+            }
+
+            .error-message {
+                color: #ff6b6b;
+            }
+        }
+
+        /* Animation for error feedback */
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            10%, 30%, 50%, 70%, 90% { transform: translateX(-5px); }
+            20%, 40%, 60%, 80% { transform: translateX(5px); }
+        }
+
+        /* Reduced motion preference */
+        @media (prefers-reduced-motion: reduce) {
+            * {
+                animation: none !important;
+                transition: none !important;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="login-box">
+        <h2>Welcome Back</h2>
+        <form id="loginForm">
+            <div class="form-group">
+                <label for="loginUsername">Username</label>
+                <input 
+                    type="text" 
+                    id="loginUsername" 
+                    name="username" 
+                    required
+                    placeholder="Enter your username"
+                    autocomplete="username"
+                    autocapitalize="none">
+                <div class="error-message" id="errorMessage">Username not found or incorrect.</div>
+            </div>
+            
+            <button type="submit">Log In</button>
+        </form>
+        <p class="signup-link">Don't have an account? <a href="signup.html">Sign up</a></p>
+    </div>
+
+    <script>
+        // Disable double-tap zoom on mobile
+        document.addEventListener('touchstart', function(event) {
+            if (event.touches.length > 1) {
+                event.preventDefault();
+            }
+        }, { passive: false });
+
+        document.getElementById('loginForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            
+            const loginUsername = document.getElementById('loginUsername').value.trim();
+            const storedUsername = localStorage.getItem('username');
+            const errorMessage = document.getElementById('errorMessage');
+            const button = this.querySelector('button');
+
+            if (loginUsername === storedUsername) {
+                button.innerHTML = 'Logging in...';
+                button.disabled = true;
+
+                // Simulate a brief delay for better UX
+                setTimeout(() => {
+                    window.location.href = 'home.html?username=' + encodeURIComponent(loginUsername);
+                }, 500);
+            } else {
+                errorMessage.style.display = 'block';
+                // Shake animation for error feedback
+                const loginBox = document.querySelector('.login-box');
+                loginBox.style.animation = 'shake 0.5s';
+                setTimeout(() => {
+                    loginBox.style.animation = '';
+                }, 500);
+            }
+        });
+
+        // Clear error message when user starts typing
+        document.getElementById('loginUsername').addEventListener('input', function() {
+            document.getElementById('errorMessage').style.display = 'none';
+        });
+
+        // Handle orientation changes on mobile
+        window.addEventListener('orientationchange', function() {
+            // Brief timeout to allow the viewport to settle
+            setTimeout(() => {
+                window.scrollTo(0, 0);
+            }, 200);
+        });
+    </script>
+</body>
+</html>

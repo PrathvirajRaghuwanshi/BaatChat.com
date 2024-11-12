@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Post</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: greenyellow;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            font-family: Arial, sans-serif;
+        }
+
+        .header {
+            display: flex;
+            align-items: center;
+            padding: 1rem;
+            gap: 2rem;
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+
+        #baatchat {
+            height: 80px;
+            width: 80px;
+        }
+
+        .page-title {
+            text-align: center;
+            flex-grow: 1;
+        }
+
+        .page-title h1 {
+            font-size: clamp(1.5rem, 4vw, 2rem);
+            color: #333;
+        }
+
+        .post-container {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            padding: 1rem;
+            margin-bottom: 80px;
+        }
+
+        .post-form {
+            width: min(90%, 600px);
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            padding: 1.5rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: bold;
+            color: #333;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 0.8rem;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: border-color 0.3s;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            border-color: orangered;
+            outline: none;
+        }
+
+        .form-group textarea {
+            min-height: 150px;
+            resize: vertical;
+        }
+
+        .media-preview {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            margin-top: 1rem;
+        }
+
+        .preview-image {
+            width: 100px;
+            height: 100px;
+            object-fit: cover;
+            border-radius: 8px;
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        .action-btn {
+            padding: 0.8rem 1.5rem;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: transform 0.2s, opacity 0.2s;
+        }
+
+        .action-btn:active {
+            transform: scale(0.98);
+            opacity: 0.9;
+        }
+
+        .post-btn {
+            background-color: orangered;
+            color: white;
+            flex: 2;
+        }
+
+        .media-btn {
+            background-color: #4CAF50;
+            color: white;
+            flex: 1;
+        }
+
+        .nav-btn {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 60px;
+            background-color: orangered;
+            border-radius: 15px 15px 0 0;
+            display: flex;
+            justify-content: space-evenly;
+            align-items: center;
+            padding: 0.5rem;
+        }
+
+        .nav-btn button {
+            height: 40px;
+            width: 40px;
+            border-radius: 10px;
+            border: none;
+            background-color: transparent;
+            color: white;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .nav-btn button:hover {
+            background-color: rgba(255, 255, 255, 0.2);
+        }
+
+        #post {
+            background-color: green;
+        }
+
+        .location-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background-color: #f0f0f0;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            margin-top: 0.5rem;
+        }
+
+        /* Media Queries */
+        @media (max-width: 480px) {
+            .header {
+                padding: 0.8rem;
+                gap: 1rem;
+            }
+
+            #baatchat {
+                height: 60px;
+                width: 60px;
+            }
+
+            .post-form {
+                padding: 1rem;
+            }
+
+            .action-buttons {
+                flex-direction: column;
+            }
+
+            .action-btn {
+                width: 100%;
+            }
+
+            .nav-btn {
+                height: 50px;
+            }
+
+            .nav-btn button {
+                height: 35px;
+                width: 35px;
+            }
+        }
+
+        @media (min-width: 768px) {
+            .post-form {
+                padding: 2rem;
+            }
+
+            .preview-image {
+                width: 120px;
+                height: 120px;
+            }
+        }
+
+        @media (min-width: 1024px) {
+            .post-form {
+                width: 700px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <img src="img10.png" id="baatchat" alt="BaatChat Logo">
+        <div class="page-title">
+            <h1>Create Post</h1>
+        </div>
+    </div>
+
+    <div class="post-container">
+        <form class="post-form" id="postForm">
+            <div class="form-group">
+                <label for="postTitle">Title</label>
+                <input type="text" id="postTitle" placeholder="Give your post a title" required>
+            </div>
+
+            <div class="form-group">
+                <label for="postContent">Content</label>
+                <textarea id="postContent" placeholder="What's on your mind?" required></textarea>
+            </div>
+
+            <div class="form-group">
+                <label>Location</label>
+                <div class="location-tag">
+                    <i class="fa-solid fa-location-dot"></i>
+                    <span id="locationText">Add location</span>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label>Media</label>
+                <div class="media-preview" id="mediaPreview"></div>
+            </div>
+
+            <div class="action-buttons">
+                <button type="button" class="action-btn media-btn" id="addMedia">
+                    <i class="fa-solid fa-image"></i> Add Media
+                </button>
+                <button type="submit" class="action-btn post-btn">
+                    <i class="fa-solid fa-paper-plane"></i> Post
+                </button>
+            </div>
+        </form>
+    </div>
+
+    <div class="nav-btn">
+       <a href="home.html"> <button id="home"><i class="fa-solid fa-house"></i></button></a>
+       <a href="explore.html"> <button id="groups"><i class="fa-regular fa-compass"></i></button></a>
+        <button id="post"><i class="fa-solid fa-plus"></i></button>
+        <a href="radar.html"> <button id="radar"><i class="fa-solid fa-location-dot"></i></button></a>
+        <a href="chat.html"><button id="bell"><i class="fa-solid fa-bell"></i></button></a> 
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const postForm = document.getElementById('postForm');
+            const addMediaBtn = document.getElementById('addMedia');
+            const mediaPreview = document.getElementById('mediaPreview');
+            const locationTag = document.querySelector('.location-tag');
+            const locationText = document.getElementById('locationText');
+
+           
+            postForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                const title = document.getElementById('postTitle').value;
+                const content = document.getElementById('postContent').value;
+                
+               
+                console.log('Post created:', {
+                    title,
+                    content,
+                    location: locationText.textContent
+                });
+
+                alert('Post created successfully!');
+                postForm.reset();
+                mediaPreview.innerHTML = '';
+            });
+
+          
+            addMediaBtn.addEventListener('click', function() {
+               
+                const mockImage = document.createElement('img');
+                mockImage.src = '/api/placeholder/100/100';
+                mockImage.alt = 'Preview';
+                mockImage.className = 'preview-image';
+                mediaPreview.appendChild(mockImage);
+            });
+
+           
+            locationTag.addEventListener('click', function() {
+               
+                locationText.textContent = 'Current Location';
+            });
+
+            // Navigation buttons
+            document.getElementById('home').addEventListener('click', () => {
+                window.location.href = 'index.html';
+            });
+
+          
+        });
+    </script>
+</body>
+</html>
