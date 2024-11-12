@@ -10,9 +10,9 @@ first we have to sign in to the website with simple information then login.
 now we are on home page which contains swipe right left mechanism when it swipe right it gets matched. at end it has a navigation bar which can redirect us to explore, post, chat, radar pages.
 
 at explore page we can join groups that we want.
-at post we can post topics of our choice.
-at radar we can set our preference of topics and can search places locally .
-at chat we can chat with our matches.
+at post we can post topics and add media of our choice.
+at radar we can set our preference of topics given there and can search places locally .
+at chat we can chat with our matches by simply selecting their name from contact box .
 
 
 
